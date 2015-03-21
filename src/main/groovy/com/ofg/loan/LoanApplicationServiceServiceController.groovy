@@ -38,6 +38,7 @@ public class LoanApplicationServiceServiceController {
         LoanEntity loan = new LoanEntity( request.amount,  request.loanId);
         loanRepository.save(loan);
 
+
         callFraudDetectionService( request.firstName,  request.lastName,  request.job,  request.amount,  request.age,  request.loanId)
         callReportingService( request.firstName, request.lastName, request.age, request.loanId);
 
@@ -80,7 +81,7 @@ public class LoanApplicationServiceServiceController {
                     HystrixCommand.Setter.withGroupKey({'group_key'}),
                     {'body to return upon fallback'}
                     )
-                .onUrl("/api/client")
+                .onUrl("/api/client-broken")
                 .body(JsonOutput.toJson([
                 firstName: firstName,
                 lastName : lastName,
