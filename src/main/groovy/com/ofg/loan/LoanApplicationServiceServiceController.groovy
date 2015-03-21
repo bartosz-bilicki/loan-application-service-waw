@@ -1,5 +1,6 @@
 package com.ofg.loan
 
+import com.codahale.metrics.MetricRegistry
 import com.netflix.hystrix.HystrixCommand
 import com.netflix.hystrix.HystrixObservableCommand
 import com.nurkiewicz.asyncretry.AsyncRetryExecutor;
@@ -31,65 +32,78 @@ public class LoanApplicationServiceServiceController {
     @Autowired
     private AsyncRetryExecutor executor;
 
-     @RequestMapping(method = RequestMethod.POST)
-    public void loan(@RequestBody @NotNull LoanServiceRequest request)
-     {
+    @Autowired
+    MetricRegistry metricRegistry;
 
-        LoanEntity loan = new LoanEntity( request.amount,  request.loanId);
+    @RequestMapping(method = RequestMethod.POST)
+    public void loan(@RequestBody @NotNull LoanServiceRequest request) {
+
+        metricRegistry.counter("call.load.before").inc();
+        LoanEntity loan = new LoanEntity(request.amount, request.loanId);
         loanRepository.save(loan);
 
+        callFraudDetectionService(request.firstName, request.lastName, request.job, request.amount, request.age, request.loanId)
+        callReportingService(request.firstName, request.lastName, request.age, request.loanId);
+        metricRegistry.counter("call.load.after").inc();
+    }
 
-        callFraudDetectionService( request.firstName,  request.lastName,  request.job,  request.amount,  request.age,  request.loanId)
-        callReportingService( request.firstName, request.lastName, request.age, request.loanId);
+    @RequestMapping(method = RequestMethod.POST)
+    public void loan_broken(@RequestBody @NotNull LoanServiceRequest request) {
+        metricRegistry.counter("call.load_broken.before").inc();
+        LoanEntity loan = new LoanEntity(request.amount, request.loanId);
+        loanRepository.save(loan);
 
+        callFraudDetectionService(request.firstName, request.lastName, request.job, request.amount, request.age, request.loanId)
+        callReportingServiceBroken(request.firstName, request.lastName, request.age, request.loanId);
+        metricRegistry.counter("call.load_broken.after").inc();
     }
 
     private void callFraudDetectionService(String firstName, String lastName, String job, Number amount, Number age, String loanId) {
-/*        """
-{
-    "firstName":"$firstName"
-}
-"""*/
-
         client
                 .forService("fraud-detection-service")
                 .retryUsing(executor)
                 .put()
                 .withCircuitBreaker(
-                    HystrixCommand.Setter.withGroupKey({'group_key'}),
-                    {'body to return upon fallback'}
-                )
+                HystrixCommand.Setter.withGroupKey({ 'group_key' }),
+                { 'body to return upon fallback' })
                 .onUrl("/api/loanApplication/" + loanId)
                 .body(JsonOutput.toJson([
-                 firstName: firstName,
-                 lastName : lastName,
-                  job      : job,
-                  amount   : amount,
-                   age      : age
-                  ]))
+                firstName: firstName,
+                lastName : lastName,
+                job      : job,
+                amount   : amount,
+                age      : age
+        ]))
+                .withHeaders()
+                .contentTypeJson()
+                .andExecuteFor().ignoringResponseAsync();
+    }
+
+    private void callReportingService(String url,String firstName, String lastName, Number age, String loanId) {
+        client
+                .forService("reporting-service")
+                .retryUsing(executor)
+                .post()
+                .withCircuitBreaker(
+                HystrixCommand.Setter.withGroupKey({ 'group_key' }),
+                { 'body to return upon fallback' })
+                .onUrl(url)
+                .body(JsonOutput.toJson([
+                firstName: firstName,
+                lastName : lastName,
+                loanid   : loanId,
+                age      : age
+                ]))
                 .withHeaders()
                 .contentTypeJson()
                 .andExecuteFor().ignoringResponseAsync();
     }
 
     private void callReportingService(String firstName, String lastName, Number age, String loanId) {
-        client
-                .forService("reporting-service")
-                .retryUsing(executor)
-                .post()
-                .withCircuitBreaker(
-                    HystrixCommand.Setter.withGroupKey({'group_key'}),
-                    {'body to return upon fallback'}
-                    )
-                .onUrl("/api/client-broken")
-                .body(JsonOutput.toJson([
-                firstName: firstName,
-                lastName : lastName,
-                loanid : loanId,
-                age      : age
-        ]))
-                .withHeaders()
-                .contentTypeJson()
-                .andExecuteFor().ignoringResponseAsync();
+        callReportingService("/api/client",firstName,lastName,age,loanId);
+    }
+
+    private void callReportingServiceBroken(String firstName, String lastName, Number age, String loanId) {
+        callReportingService("/api/client-broken",firstName,lastName,age,loanId);
     }
 }
