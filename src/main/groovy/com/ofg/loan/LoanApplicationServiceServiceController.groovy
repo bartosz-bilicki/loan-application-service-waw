@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/loanApplication")
 @TypeChecked
 //@Api(value = "pairId", description = "Collects places from tweets and propagates them to Collerators")
 public class LoanApplicationServiceServiceController {
@@ -32,30 +31,30 @@ public class LoanApplicationServiceServiceController {
     @Autowired
     private AsyncRetryExecutor executor;
 
-    @Autowired
-    MetricRegistry metricRegistry;
+//    @Autowired
+//    MetricRegistry metricRegistry;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value="/api/loanApplication", method = RequestMethod.POST)
     public void loan(@RequestBody @NotNull LoanServiceRequest request) {
 
-        metricRegistry.counter("call.load.before").inc();
+//        metricRegistry.counter("call.load.before").inc();
         LoanEntity loan = new LoanEntity(request.amount, request.loanId);
         loanRepository.save(loan);
 
         callFraudDetectionService(request.firstName, request.lastName, request.job, request.amount, request.age, request.loanId)
         callReportingService(request.firstName, request.lastName, request.age, request.loanId);
-        metricRegistry.counter("call.load.after").inc();
+//        metricRegistry.counter("call.load.after").inc();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value="/api/loanApplication_broken", method = RequestMethod.POST)
     public void loan_broken(@RequestBody @NotNull LoanServiceRequest request) {
-        metricRegistry.counter("call.load_broken.before").inc();
+//        metricRegistry.counter("call.load_broken.before").inc();
         LoanEntity loan = new LoanEntity(request.amount, request.loanId);
         loanRepository.save(loan);
 
         callFraudDetectionService(request.firstName, request.lastName, request.job, request.amount, request.age, request.loanId)
         callReportingServiceBroken(request.firstName, request.lastName, request.age, request.loanId);
-        metricRegistry.counter("call.load_broken.after").inc();
+//        metricRegistry.counter("call.load_broken.after").inc();
     }
 
     private void callFraudDetectionService(String firstName, String lastName, String job, Number amount, Number age, String loanId) {
