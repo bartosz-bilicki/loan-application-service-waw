@@ -1,4 +1,4 @@
-package com.ofg.twitter.place.extractor
+package com.ofg.loan.place.extractor
 
 import com.netflix.hystrix.HystrixCommand
 import com.netflix.hystrix.HystrixCommandGroupKey

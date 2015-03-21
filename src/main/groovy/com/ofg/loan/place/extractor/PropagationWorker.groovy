@@ -1,6 +1,6 @@
-package com.ofg.twitter.place.extractor
+package com.ofg.loan.place.extractor
 
-import com.ofg.twitter.place.model.Tweet
+import com.ofg.loan.place.model.Tweet
 
 interface PropagationWorker {
     void collectAndPropagate(long pairId, List<Tweet> tweets)

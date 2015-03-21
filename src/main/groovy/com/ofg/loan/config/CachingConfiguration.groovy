@@ -1,12 +1,10 @@
-package com.ofg.twitter.config
+package com.ofg.loan.config
 
 import net.sf.ehcache.config.CacheConfiguration
 import org.springframework.cache.CacheManager
 import org.springframework.cache.ehcache.EhCacheCacheManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-
-import java.util.concurrent.TimeUnit
 
 import static java.util.concurrent.TimeUnit.MINUTES
 

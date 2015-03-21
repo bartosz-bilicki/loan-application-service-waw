@@ -1,4 +1,4 @@
-package com.ofg.twitter.place.extractor
+package com.ofg.loan.place.extractor
 
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j

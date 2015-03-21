@@ -1,11 +1,11 @@
-package com.ofg.twitter.config;
+package com.ofg.loan.config;
 
 public final class Versions {
     private Versions() {
         throw new UnsupportedOperationException("Can't instantiate a utility class");
     }
 
-    public static final String APP_NAME = "com.ofg.twitter-places-analyzer";
+    public static final String APP_NAME = "com.ofg.loan-places-analyzer";
     public static final String VND_PREFIX = "application/vnd";
     public static final String JSON_TYPE_SUFFIX = "+json";
 

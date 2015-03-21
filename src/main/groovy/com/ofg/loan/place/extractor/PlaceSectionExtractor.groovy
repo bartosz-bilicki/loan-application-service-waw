@@ -1,9 +1,9 @@
-package com.ofg.twitter.place.extractor
+package com.ofg.loan.place.extractor
 
-import com.ofg.twitter.place.extractor.Place.PlaceDetails
-import com.ofg.twitter.place.extractor.PlaceExtractor.PlaceResolutionProbability
-import com.ofg.twitter.place.extractor.metrics.MatchProbabilityMetrics
-import com.ofg.twitter.place.model.Tweet
+import com.ofg.loan.place.extractor.Place.PlaceDetails
+import com.ofg.loan.place.extractor.PlaceExtractor.PlaceResolutionProbability
+import com.ofg.loan.place.extractor.metrics.MatchProbabilityMetrics
+import com.ofg.loan.place.model.Tweet
 import groovy.transform.PackageScope
 
 @PackageScope

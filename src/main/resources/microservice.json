@@ -1,10 +1,13 @@
 {
-    "waw": {
-        "this": "com/ofg/loan-application-service-waw",
-        "dependencies": {
-            "collerator": {
-                "path": "com/ofg/some-other-service"
-            }
-        }
+  "waw": {
+    "this": "com/ofg/loan-application-service-waw",
+    "dependencies": {
+      "fraud-detection-service": {
+        "path": "com/ofg/fraud-detection-service-waw"
+      },
+      "reporting-service": {
+        "path": "com/ofg/reporting-service-waw"
+      }
     }
-}
+  }
+} 

@@ -1,7 +1,7 @@
-package com.ofg.twitter.place.extractor
+package com.ofg.loan.place.extractor
 
 import com.ofg.infrastructure.web.resttemplate.fluent.ServiceRestClient
-import com.ofg.twitter.config.Collaborators
+import com.ofg.loan.config.Collaborators
 import groovy.transform.CompileStatic
 
 @CompileStatic

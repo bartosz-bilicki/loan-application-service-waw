@@ -1,4 +1,4 @@
-package com.ofg.twitter.place.model;
+package com.ofg.loan.place.model;
 
 public class TwitterPlace {
     private String name;

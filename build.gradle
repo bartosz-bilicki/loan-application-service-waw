@@ -31,7 +31,7 @@ ext {
     currentVersion = "${versionPrefix}-${buildNrLoc}"
     projectGroupId = 'com.ofg'
 
-    contractsDir = file("${project.rootDir}/repository/mappings/com/ofg/twitter-places-analyzer")
+    contractsDir = file("${project.rootDir}/repository/mappings/com/ofg/loan-places-analyzer")
     wiremockStubsOutputDirRoot = file("${project.buildDir}/production/${project.name}-stubs/")
     wiremockStubsOutputDir = new File(wiremockStubsOutputDirRoot, 'mappings/')
 
@@ -186,7 +186,7 @@ if (project.hasProperty("coverage")) {
 }
 
 accurest {
-    baseClassForTests = 'com.ofg.twitter.places.accurest.BaseMockMvcSpec'
+    baseClassForTests = 'com.ofg.loan.places.accurest.BaseMockMvcSpec'
     basePackageForTests = 'accurest'
     contractsDslDir = contractsDir
     generatedTestSourcesDir = file("${project.buildDir}/generated-sources/accurest")

@@ -1,7 +1,7 @@
-package com.ofg.twitter.place
+package com.ofg.loan.place
 
-import com.ofg.twitter.place.extractor.PropagationWorker
-import com.ofg.twitter.place.model.Tweet
+import com.ofg.loan.place.extractor.PropagationWorker
+import com.ofg.loan.place.model.Tweet
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.transform.TypeChecked
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.constraints.NotNull
 import java.util.concurrent.Callable
 
-import static com.ofg.twitter.config.Versions.TWITTER_PLACES_ANALYZER_JSON_VERSION_1
+import static com.ofg.loan.config.Versions.TWITTER_PLACES_ANALYZER_JSON_VERSION_1
 import static org.springframework.web.bind.annotation.RequestMethod.PUT
 
 @Slf4j

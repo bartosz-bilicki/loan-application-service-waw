@@ -17,7 +17,7 @@ There is a version with web application connected with backend side. You can fin
 
 ## What should I do after I clone the repo?
 
-You can remove all the caching related libraries, annotations and **com.ofg.twitter** packages.
+You can remove all the caching related libraries, annotations and **com.ofg.loan** packages.
 Next adjust all the properties and then you have an empty project - you're now ready to go.
 
 ## How can I run it?
@@ -240,7 +240,7 @@ Inside you will find [bower](http://bower.io/) for javascript dependency managem
 
 Before first use, build your whole application with `gradle build`. It will download auto-magically all npms and bower dependencies.
 
-Then run you application (for example from Idea, just run main in `com.ofg.twitter.Application` specifying
+Then run you application (for example from Idea, just run main in `com.ofg.loan.Application` specifying
 the correct -Dspring.profiles.active).
 
 Now your application (backend) works. But you still need js+html. And since this is 2014, you don't just write html anymore, you have to use a shitload of libs :)

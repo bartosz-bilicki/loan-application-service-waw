@@ -1,4 +1,4 @@
-package com.ofg.twitter.config
+package com.ofg.loan.config
 
 import groovy.transform.CompileStatic
 

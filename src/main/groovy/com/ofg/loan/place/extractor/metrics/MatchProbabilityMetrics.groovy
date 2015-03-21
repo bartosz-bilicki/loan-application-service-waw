@@ -1,8 +1,8 @@
-package com.ofg.twitter.place.extractor.metrics
+package com.ofg.loan.place.extractor.metrics
 
 import com.codahale.metrics.Meter
 import com.codahale.metrics.MetricRegistry
-import com.ofg.twitter.place.extractor.PlaceExtractor.PlaceResolutionProbability
+import com.ofg.loan.place.extractor.PlaceExtractor.PlaceResolutionProbability
 
 class MatchProbabilityMetrics {
 
@@ -18,7 +18,7 @@ class MatchProbabilityMetrics {
 
     private void registerProbabilityMetrics(MetricRegistry metricRegistry) {
         PlaceResolutionProbability.values().each { probability ->
-            probabilityMeters[probability] = metricRegistry.meter("twitter.places.analyzed.probability.$probability")
+            probabilityMeters[probability] = metricRegistry.meter("loan.places.analyzed.probability.$probability")
         }
     }
 }

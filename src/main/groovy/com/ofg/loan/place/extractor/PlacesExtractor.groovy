@@ -1,7 +1,7 @@
-package com.ofg.twitter.place.extractor
+package com.ofg.loan.place.extractor
 
 import com.codahale.metrics.Meter
-import com.ofg.twitter.place.model.Tweet
+import com.ofg.loan.place.model.Tweet
 import groovy.transform.PackageScope
 import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool

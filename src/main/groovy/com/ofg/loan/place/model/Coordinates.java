@@ -1,4 +1,4 @@
-package com.ofg.twitter.place.model;
+package com.ofg.loan.place.model;
 
 import java.util.ArrayList;
 import java.util.List;
