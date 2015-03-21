@@ -32,19 +32,14 @@ public class LoanApplicationServiceServiceController {
     private AsyncRetryExecutor executor;
 
      @RequestMapping(method = RequestMethod.POST)
-    public void loan(@RequestBody @NotNull Number amount,
-                     @RequestBody @NotNull String loanId,
-                     @RequestBody @NotNull String firstName,
-                     @RequestBody @NotNull String lastName,
-                     @RequestBody @NotNull String job,
-                     @RequestBody @NotNull Number age
-    ) {
+    public void loan(@RequestBody @NotNull LoanServiceRequest request)
+     {
 
-        LoanEntity loan = new LoanEntity(amount, loanId);
+        LoanEntity loan = new LoanEntity( request.amount,  request.loanId);
         loanRepository.save(loan);
 
-        callFraudDetectionService(firstName, lastName, job, amount, age, loanId)
-        callReportingService(firstName,lastName,age,loanId);
+        callFraudDetectionService( request.firstName,  request.lastName,  request.job,  request.amount,  request.age,  request.loanId)
+        callReportingService( request.firstName, request.lastName, request.age, request.loanId);
 
     }
 

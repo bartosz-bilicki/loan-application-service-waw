@@ -17,6 +17,9 @@ public class LoanEntity {
     @Id
     private String id;
 
+    LoanEntity() {
+    }
+
     public LoanEntity(Number amount, String id) {
         this.amount = amount;
         this.id = id;
